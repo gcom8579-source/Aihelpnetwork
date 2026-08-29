@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Help Network</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,sans-serif;
+  background:#0b1020;color:white;
+  min-height:100vh;display:flex;justify-content:center;
+}
+.app{width:100%;max-width:700px;min-height:100vh;background:#11182b}
+header{
+  padding:22px;text-align:center;
+  background:#151f38;border-bottom:1px solid #293653;
+}
+header h1{margin:0;font-size:25px}
+header p{margin:7px 0 0;color:#9da9c2}
+.chat{padding:20px;height:calc(100vh - 155px);overflow:auto}
+.msg{
+  max-width:85%;padding:13px 16px;margin:12px 0;
+  border-radius:16px;line-height:1.5;
+}
+.bot{background:#202c48;margin-right:auto}
+.user{background:#2563eb;margin-left:auto}
+.input{
+  position:fixed;bottom:0;width:100%;max-width:700px;
+  padding:15px;background:#151f38;display:flex;gap:8px;
+}
+input{
+  flex:1;padding:14px;border:0;border-radius:12px;
+  background:#26334f;color:white;font-size:16px;outline:none;
+}
+button{
+  border:0;border-radius:12px;padding:0 20px;
+  background:#2563eb;color:white;font-size:16px;
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<h1>🤖 AI Help Network</h1>
+<p>Your simple AI assistant</p>
+</header>
+
+<div class="chat" id="chat">
+<div class="msg bot">
+Namaste! 👋 Main AI Help Network hoon.<br>
+Aap mujhse koi bhi simple question pooch sakte ho.
+</div>
+</div>
+
+<div class="input">
+<input id="input" placeholder="Type your message..." onkeydown="if(event.key==='Enter')send()">
+<button onclick="send()">Send</button>
+</div>
+</div>
+
+<script>
+function send(){
+  const input=document.getElementById("input");
+  const text=input.value.trim();
+  if(!text)return;
+
+  add(text,"user");
+  input.value="";
+
+  setTimeout(()=>{
+    let reply="Interesting question! 😊 Main abhi basic AI demo mode mein hoon.";
+
+    const t=text.toLowerCase();
+
+    if(t.includes("hello")||t.includes("hi")||t.includes("namaste"))
+      reply="Hello! 👋 Kaise help karun?";
+    else if(t.includes("who are you")||t.includes("tum kon"))
+      reply="Main AI Help Network ka assistant hoon. 🤖";
+    else if(t.includes("help"))
+      reply="Bilkul! Apna question type karo, main help karne ki koshish karunga. 👍";
+    else if(t.includes("github"))
+      reply="GitHub par aap apne project ka code store aur manage kar sakte ho.";
+    else if(t.includes("website"))
+      reply="Ye AI Help Network ka demo website hai. 🚀";
+
+    add(reply,"bot");
+  },600);
+}
+
+function add(text,type){
+  const chat=document.getElementById("chat");
+  const div=document.createElement("div");
+  div.className="msg "+type;
+  div.textContent=text;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+</script>
+</body>
+</html>
